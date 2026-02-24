@@ -71,7 +71,6 @@ h1 { margin-bottom: 5px; font-size: 26px; }
   box-shadow: 0 5px 15px rgba(0,0,0,.4);
 }
 
-/* FOTO DA SURPRESA */
 #foto-surpresa {
   display: none;
   width: 100%;
@@ -112,6 +111,10 @@ button {
 
 <body>
 
+<audio id="musica" loop>
+  <source src="https://www.myinstants.com/media/sounds/careless-whisper-saxone.mp3" type="audio/mpeg">
+</audio>
+
 <div class="card">
   <h1>Beatriz ❤️ Gustavo</h1>
   <div class="subtitle">Desde 01 de janeiro de 2024</div>
@@ -121,7 +124,8 @@ button {
   <div class="gallery" id="galeria-principal">
     <img src="images/IMG-20240818-WA0020~2.jpg">
     <img src="images/IMG-20250330-WA0054.jpg">
-    <img src="images/IMG_20240721_120318_384.webp"> <img src="images/IMG_20241205_220620_726.webp">
+    <img src="images/IMG_20240721_120318_384.webp">
+    <img src="images/IMG_20241205_220620_726.webp">
     <img src="images/IMG_20241231_231718_292.webp">
     <img src="images/IMG_20251111_145539_183.webp">
   </div>
@@ -174,6 +178,11 @@ setInterval(() => {
 }, 700);
 
 function surpresa() {
+  // Inicia a música
+  const audio = document.getElementById("musica");
+  audio.play();
+
+  // Altera o conteúdo
   document.getElementById("message").innerHTML =
     "Nunca se esqueça que você é a minha melhor escolha. E mesmo que não fosse, eu te escolheria um milhão de vezes. 💖";
   
