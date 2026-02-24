@@ -5,14 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beatriz & Gustavo</title>
 
-<!-- LIB QR CODE -->
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3, #8a2be2);
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: #fff;
   display: flex;
   justify-content: center;
@@ -23,22 +20,29 @@ body {
 
 /* CARD INICIAL */
 .card {
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(6px);
-  border-radius: 22px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 20px;
   padding: 25px;
   max-width: 380px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.45);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   animation: fadeUp 1.2s ease;
   position: relative;
   z-index: 2;
 }
 
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: scale(0.95); }
 }
 
 h1 { margin-bottom: 5px; font-size: 26px; }
@@ -52,8 +56,8 @@ h1 { margin-bottom: 5px; font-size: 26px; }
 }
 
 .time-box {
-  background: rgba(0,0,0,0.35);
-  border-radius: 14px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 12px;
   padding: 8px;
 }
 
@@ -72,13 +76,13 @@ h1 { margin-bottom: 5px; font-size: 26px; }
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
-/* BOTÃO */
+/* BOTÕES */
 button {
   margin-top: 20px;
-  background: linear-gradient(135deg,#ff4d6d,#ff758c);
+  background: #ff4d6d;
   border: none;
   padding: 12px 22px;
   border-radius: 30px;
@@ -86,6 +90,10 @@ button {
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 /* CORAÇÕES */
@@ -101,10 +109,7 @@ button {
   to { transform: translateY(-110vh); opacity: 0; }
 }
 
-/* ===================== */
-/* ===== EFEITO FINAL ==== */
-/* ===================== */
-
+/* ===== EFEITO FINAL ===== */
 #efeito-final {
   position: fixed;
   inset: 0;
@@ -117,9 +122,7 @@ button {
 
 .final-box {
   text-align: center;
-  color: white;
-  animation: fadeUp 1.5s ease;
-  max-width: 90%;
+  animation: fadeUp 1.2s ease;
 }
 
 /* POLAROIDS */
@@ -132,18 +135,20 @@ button {
 
 .polaroid {
   background: white;
-  padding: 10px 10px 22px;
-  width: 115px;
-  border-radius: 8px;
-  box-shadow: 0 15px 30px rgba(0,0,0,.45);
-  animation: flutuar 4s ease-in-out infinite;
+  padding: 10px 10px 20px;
+  width: 110px;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.4);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: aparecer 0.8s forwards;
 }
 
 .polaroid img {
   width: 100%;
-  height: 105px;
+  height: 100px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .polaroid span {
@@ -154,38 +159,29 @@ button {
   font-family: 'Courier New', monospace;
 }
 
-@keyframes flutuar {
-  0%,100% { transform: translateY(0) rotate(var(--r)); }
-  50% { transform: translateY(-14px) rotate(var(--r)); }
+@keyframes aparecer {
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.p1 { --r: -8deg; }
-.p2 { --r: 6deg; animation-delay: 1s; }
-.p3 { --r: -4deg; animation-delay: 2s; }
-
-/* CONTADOR FINAL */
 .contador-final {
-  background: rgba(255,255,255,0.28);
-  padding: 16px 22px;
-  border-radius: 22px;
+  background: rgba(255,255,255,0.25);
+  padding: 14px 20px;
+  border-radius: 18px;
   margin-bottom: 15px;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 14px;
 }
 
-/* TEXTO */
 .texto-final {
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 18px;
+  min-height: 70px;
 }
 
-/* QR CODE */
-#qrcode {
-  background: white;
-  padding: 10px;
-  border-radius: 14px;
-  display: inline-block;
+/* BOTÃO VER DE NOVO */
+.ver-de-novo {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.9);
+  color: #ff4d6d;
 }
 </style>
 </head>
@@ -210,20 +206,19 @@ button {
   <button onclick="mostrarFinal()">Clique para uma surpresa 💌</button>
 </div>
 
-<!-- EFEITO FINAL -->
 <div id="efeito-final">
   <div class="final-box">
 
     <div class="polaroids">
-      <div class="polaroid p1">
+      <div class="polaroid" style="animation-delay:0.3s">
         <img src="images/IMG-20240818-WA0020~2.jpg">
         <span>Nosso começo 🤍</span>
       </div>
-      <div class="polaroid p2">
+      <div class="polaroid" style="animation-delay:0.8s">
         <img src="images/IMG_20241231_231718_292.webp">
         <span>Só nós ✨</span>
       </div>
-      <div class="polaroid p3">
+      <div class="polaroid" style="animation-delay:1.3s">
         <img src="images/IMG_20251116_155233_488.webp">
         <span>Pra sempre 💖</span>
       </div>
@@ -231,13 +226,9 @@ button {
 
     <div class="contador-final" id="contador-final"></div>
 
-    <div class="texto-final">
-      Nunca se esqueça:<br>
-      Você é a minha melhor escolha.<br>
-      Mesmo que não fosse, eu te escolheria um milhão de vezes 💕
-    </div>
+    <div class="texto-final" id="texto-digitado"></div>
 
-    <div id="qrcode"></div>
+    <button class="ver-de-novo" onclick="verDeNovo()">🔁 Ver de novo</button>
 
   </div>
 </div>
@@ -274,14 +265,33 @@ setInterval(atualizarTempo, 1000);
 atualizarTempo();
 
 function mostrarFinal() {
-  document.getElementById("card").style.display = "none";
-  document.getElementById("efeito-final").style.display = "flex";
+  const card = document.getElementById("card");
+  card.classList.add("fade-out");
 
-  new QRCode(document.getElementById("qrcode"), {
-    text: window.location.href,
-    width: 150,
-    height: 150
-  });
+  setTimeout(() => {
+    card.style.display = "none";
+    document.getElementById("efeito-final").style.display = "flex";
+    digitarTexto();
+  }, 900);
+}
+
+function verDeNovo() {
+  document.getElementById("efeito-final").style.display = "none";
+  const card = document.getElementById("card");
+  card.style.display = "block";
+  card.classList.remove("fade-out");
+}
+
+function digitarTexto() {
+  const texto = "Nunca se esqueça:\nVocê é a minha melhor escolha. E mesmo que não fosse, eu te escolheria um milhão de vezes. 💕";
+  const el = document.getElementById("texto-digitado");
+  el.innerHTML = "";
+  let i = 0;
+  const interval = setInterval(() => {
+    el.innerHTML += texto[i] === "\n" ? "<br>" : texto[i];
+    i++;
+    if (i >= texto.length) clearInterval(interval);
+  }, 40);
 }
 
 // CORAÇÕES
