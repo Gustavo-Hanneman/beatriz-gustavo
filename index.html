@@ -64,7 +64,7 @@ h1 { margin-bottom: 5px; font-size: 26px; }
 .number { font-size: 18px; font-weight: bold; }
 .label { font-size: 10px; opacity: 0.8; }
 
-/* GALERIA (AJUSTADA PARA NÃO CORTAR CABEÇAS) */
+/* GALERIA */
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -76,7 +76,6 @@ h1 { margin-bottom: 5px; font-size: 26px; }
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
-  object-position: top; /* Foca no topo da imagem */
   border-radius: 10px;
 }
 
@@ -126,19 +125,18 @@ button:hover {
   animation: fadeUp 1.2s ease;
 }
 
-/* POLAROIDS (AJUSTADAS PARA CABER PERFEITAMENTE) */
+/* POLAROIDS */
 .polaroids {
   display: flex;
-  gap: 15px;
+  gap: 18px;
   justify-content: center;
   margin-bottom: 25px;
-  flex-wrap: wrap; /* Garante que caiba em telas menores */
 }
 
 .polaroid {
   background: white;
   padding: 10px 10px 20px;
-  width: 100px;
+  width: 110px;
   border-radius: 6px;
   box-shadow: 0 10px 25px rgba(0,0,0,.4);
   opacity: 0;
@@ -148,19 +146,17 @@ button:hover {
 
 .polaroid img {
   width: 100%;
-  height: 100px; /* Altura fixa quadrada */
-  object-fit: cover; /* Preenche sem distorcer */
-  object-position: top; /* Prioriza a parte de cima (cabeças) */
+  height: 100px;
+  object-fit: cover;
   border-radius: 4px;
 }
 
 .polaroid span {
   display: block;
-  margin-top: 8px;
-  font-size: 10px;
+  margin-top: 6px;
+  font-size: 11px;
   color: #333;
   font-family: 'Courier New', monospace;
-  font-weight: bold;
 }
 
 @keyframes aparecer {
@@ -179,7 +175,6 @@ button:hover {
   font-size: 16px;
   font-weight: bold;
   min-height: 70px;
-  padding: 0 20px;
 }
 
 /* BOTÃO VER DE NOVO */
@@ -313,3 +308,5 @@ setInterval(() => {
 
 </body>
 </html>
+
+Esse é meu texto?
