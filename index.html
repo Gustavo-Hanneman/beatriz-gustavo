@@ -30,7 +30,7 @@ body {
   position: relative;
   z-index: 2;
   margin: 20px 0;
-  box-sizing: border-box; /* Garante que o padding não estique o card */
+  box-sizing: border-box;
 }
 
 @keyframes fadeUp {
@@ -56,7 +56,6 @@ h1 { margin-bottom: 5px; font-size: 26px; }
 .number { font-size: 18px; font-weight: bold; }
 .label { font-size: 10px; opacity: 0.8; }
 
-/* GALERIA CORRIGIDA PARA NÃO VAZAR */
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -66,14 +65,13 @@ h1 { margin-bottom: 5px; font-size: 26px; }
 
 .gallery img {
   width: 100%;
-  aspect-ratio: 1/1; /* Mantém quadrada */
+  aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,.4);
-  transition: transform .3s ease;
 }
 
-/* FOTO DA SURPRESA (INICIALMENTE OCULTA) */
+/* FOTO DA SURPRESA */
 #foto-surpresa {
   display: none;
   width: 100%;
@@ -90,10 +88,11 @@ button {
   margin-top: 20px;
   background: #ff4d6d;
   border: none;
-  padding: 10px 18px;
-  border-radius: 20px;
+  padding: 12px 20px;
+  border-radius: 25px;
   color: white;
   font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
 }
 
@@ -122,8 +121,7 @@ button {
   <div class="gallery" id="galeria-principal">
     <img src="images/IMG-20240818-WA0020~2.jpg">
     <img src="images/IMG-20250330-WA0054.jpg">
-    <img src="images/IMG_20240721_120318_384.webp">
-    <img src="images/IMG_20241205_220620_726.webp">
+    <img src="images/IMG_20240721_120318_384.webp"> <img src="images/IMG_20241205_220620_726.webp">
     <img src="images/IMG_20241231_231718_292.webp">
     <img src="images/IMG_20251111_145539_183.webp">
   </div>
@@ -176,14 +174,10 @@ setInterval(() => {
 }, 700);
 
 function surpresa() {
-  // Atualiza o texto com a correção gramatical
   document.getElementById("message").innerHTML =
     "Nunca se esqueça que você é a minha melhor escolha. E mesmo que não fosse, eu te escolheria um milhão de vezes. 💖";
   
-  // Mostra a foto da surpresa
   document.getElementById("foto-surpresa").style.display = "block";
-  
-  // Esconde a galeria e o botão para dar destaque à mensagem final
   document.getElementById("galeria-principal").style.display = "none";
   document.getElementById("btn-surpresa").style.display = "none";
 }
