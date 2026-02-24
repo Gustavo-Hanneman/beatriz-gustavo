@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beatriz & Gustavo</title>
+<title>Beatriz ❤️ Gustavo</title>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
+/* CARD INICIAL */
 .card {
   background: rgba(255,255,255,0.12);
   border-radius: 20px;
@@ -27,10 +27,6 @@ body {
   text-align: center;
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   animation: fadeUp 1.2s ease;
-  position: relative;
-  z-index: 2;
-  margin: 20px 0;
-  box-sizing: border-box;
 }
 
 @keyframes fadeUp {
@@ -41,6 +37,7 @@ body {
 h1 { margin-bottom: 5px; font-size: 26px; }
 .subtitle { font-size: 13px; opacity: 0.9; margin-bottom: 20px; }
 
+/* TIMER */
 .timer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -56,33 +53,6 @@ h1 { margin-bottom: 5px; font-size: 26px; }
 .number { font-size: 18px; font-weight: bold; }
 .label { font-size: 10px; opacity: 0.8; }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.gallery img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,.4);
-}
-
-#foto-surpresa {
-  display: none;
-  width: 100%;
-  max-width: 200px;
-  border-radius: 15px;
-  margin: 15px auto;
-  border: 2px solid #ff4d6d;
-  animation: fadeUp 0.8s ease;
-}
-
-.message { margin-top: 20px; font-size: 14px; line-height: 1.5; }
-
 button {
   margin-top: 20px;
   background: #ff4d6d;
@@ -95,100 +65,175 @@ button {
   cursor: pointer;
 }
 
-.heart {
+/* EFEITO FINAL */
+#efeito-final {
   position: fixed;
-  bottom: -20px;
-  animation: floatUp 6s linear forwards;
-  opacity: .7;
-  z-index: 1;
+  inset: 0;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3, #8a2be2);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
 }
 
-@keyframes floatUp {
-  to { transform: translateY(-110vh); opacity: 0; }
+.final-container {
+  text-align: center;
+  color: white;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* POLAROIDS */
+.polaroids {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.polaroid {
+  background: white;
+  padding: 10px 10px 20px;
+  width: 110px;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.4);
+  animation: flutuar 4s ease-in-out infinite;
+}
+
+.polaroid img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.polaroid span {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #333;
+  font-family: 'Courier New', monospace;
+}
+
+@keyframes flutuar {
+  0%,100% { transform: translateY(0) rotate(var(--rot)); }
+  50% { transform: translateY(-10px) rotate(var(--rot)); }
+}
+
+.p1 { --rot: -8deg; animation-delay: 0s; }
+.p2 { --rot: 5deg; animation-delay: 1s; }
+.p3 { --rot: -3deg; animation-delay: 2s; }
+
+/* CONTADOR FINAL */
+.contador-final {
+  background: rgba(255,255,255,0.2);
+  padding: 14px 20px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.texto-final {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: bold;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="musica" loop>
-  <source src="https://www.myinstants.com/media/sounds/careless-whisper-saxone.mp3" type="audio/mpeg">
-</audio>
-
-<div class="card">
+<div class="card" id="card-inicial">
   <h1>Beatriz ❤️ Gustavo</h1>
   <div class="subtitle">Desde 01 de janeiro de 2024</div>
 
   <div class="timer" id="timer"></div>
 
-  <div class="gallery" id="galeria-principal">
-    <img src="images/IMG-20240818-WA0020~2.jpg">
-    <img src="images/IMG-20250330-WA0054.jpg">
-    <img src="images/IMG_20240721_120318_384.webp">
-    <img src="images/IMG_20241205_220620_726.webp">
-    <img src="images/IMG_20241231_231718_292.webp">
-    <img src="images/IMG_20251111_145539_183.webp">
+  <button onclick="mostrarFinal()">Clique para uma surpresa 💌</button>
+</div>
+
+<!-- EFEITO FINAL -->
+<div id="efeito-final">
+  <div class="final-container">
+
+    <div class="polaroids">
+      <div class="polaroid p1">
+        <img src="images/foto1.jpg">
+        <span>Nosso começo 🤍</span>
+      </div>
+      <div class="polaroid p2">
+        <img src="images/foto2.jpg">
+        <span>Momentos nossos ✨</span>
+      </div>
+      <div class="polaroid p3">
+        <img src="images/foto3.jpg">
+        <span>Pra sempre nós 💖</span>
+      </div>
+    </div>
+
+    <div class="contador-final" id="contador-final"></div>
+
+    <div class="texto-final">
+      Beatriz ❤️ Gustavo<br>
+      Nosso amor é o meu lugar favorito no mundo.
+    </div>
+
   </div>
-
-  <img id="foto-surpresa" src="images/IMG_20251116_155233_488.webp">
-
-  <div class="message" id="message">
-    Algumas histórias não se medem em tempo,<br>
-    mas a nossa faz questão de contar cada segundo.<br><br>
-    Eu te amo 🤍
-  </div>
-
-  <button id="btn-surpresa" onclick="surpresa()">Clique para uma surpresa 💌</button>
 </div>
 
 <script>
 const startDate = new Date("2024-01-01T00:00:00");
 
-function updateTimer() {
+function calcularTempo() {
   const now = new Date();
   let diff = now - startDate;
-  const seconds = Math.floor(diff / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const months = Math.floor(days / 30.4375);
-  const years = Math.floor(months / 12);
 
-  document.getElementById("timer").innerHTML = `
-    <div class="time-box"><div class="number">${years}</div><div class="label">Anos</div></div>
-    <div class="time-box"><div class="number">${months % 12}</div><div class="label">Meses</div></div>
-    <div class="time-box"><div class="number">${days % 30}</div><div class="label">Dias</div></div>
-    <div class="time-box"><div class="number">${hours % 24}</div><div class="label">Horas</div></div>
-    <div class="time-box"><div class="number">${minutes % 60}</div><div class="label">Minutos</div></div>
-    <div class="time-box"><div class="number">${seconds % 60}</div><div class="label">Segundos</div></div>
-  `;
+  const segundos = Math.floor(diff / 1000);
+  const minutos = Math.floor(segundos / 60);
+  const horas = Math.floor(minutos / 60);
+  const dias = Math.floor(horas / 24);
+  const meses = Math.floor(dias / 30.4375);
+  const anos = Math.floor(meses / 12);
+
+  return {
+    anos,
+    meses: meses % 12,
+    dias: dias % 30,
+    horas: horas % 24,
+    minutos: minutos % 60,
+    segundos: segundos % 60
+  };
 }
 
-setInterval(updateTimer, 1000);
-updateTimer();
+function atualizarTimers() {
+  const t = calcularTempo();
 
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerText = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (14 + Math.random() * 20) + "px";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}, 700);
+  document.getElementById("timer").innerHTML = `
+    <div class="time-box"><div class="number">${t.anos}</div><div class="label">Anos</div></div>
+    <div class="time-box"><div class="number">${t.meses}</div><div class="label">Meses</div></div>
+    <div class="time-box"><div class="number">${t.dias}</div><div class="label">Dias</div></div>
+    <div class="time-box"><div class="number">${t.horas}</div><div class="label">Horas</div></div>
+    <div class="time-box"><div class="number">${t.minutos}</div><div class="label">Minutos</div></div>
+    <div class="time-box"><div class="number">${t.segundos}</div><div class="label">Segundos</div></div>
+  `;
 
-function surpresa() {
-  // Inicia a música
-  const audio = document.getElementById("musica");
-  audio.play();
+  document.getElementById("contador-final").innerHTML =
+    `${t.anos} anos • ${t.meses} meses • ${t.dias} dias<br>
+     ${t.horas}h ${t.minutos}m ${t.segundos}s juntos 💖`;
+}
 
-  // Altera o conteúdo
-  document.getElementById("message").innerHTML =
-    "Nunca se esqueça que você é a minha melhor escolha. E mesmo que não fosse, eu te escolheria um milhão de vezes. 💖";
-  
-  document.getElementById("foto-surpresa").style.display = "block";
-  document.getElementById("galeria-principal").style.display = "none";
-  document.getElementById("btn-surpresa").style.display = "none";
+setInterval(atualizarTimers, 1000);
+atualizarTimers();
+
+function mostrarFinal() {
+  document.getElementById("card-inicial").style.display = "none";
+  document.getElementById("efeito-final").style.display = "flex";
 }
 </script>
 
