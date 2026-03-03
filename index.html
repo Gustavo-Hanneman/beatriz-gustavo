@@ -302,42 +302,58 @@
     .final-box{
       text-align:center;
       animation: fadeUp 1.2s ease;
-      width: min(520px, 96vw);
+      width: min(700px, 96vw);
     }
 
-    /* POLAROIDS */
+    /* =========================
+       POLAROIDS (AJUSTADAS)
+       ========================= */
     .polaroids{
       display:flex;
-      gap: 18px;
+      gap:18px;
       justify-content:center;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
+      flex-wrap:wrap;
+      margin-bottom:18px;
     }
     .polaroid{
-      background:white;
-      padding: 10px 10px 18px;
-      width: 120px;
-      border-radius: 8px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.45);
+      background:#fff;
+      padding:12px 12px 18px;
+      width:140px;
+      border-radius:12px;
+      box-shadow: 0 14px 35px rgba(0,0,0,.35);
+      overflow:hidden;
       opacity:0;
       transform: translateY(30px);
       animation: aparecer .8s forwards;
     }
     .polaroid img{
       width:100%;
-      height: 105px;
+      height:120px;
+      border-radius:10px;
       object-fit:cover;
-      border-radius: 6px;
+      object-position:center;
+      display:block;
+      background:#000;
       cursor:pointer;
+      transition: transform .25s ease;
     }
+    .polaroid img:hover{ transform: scale(1.04); }
     .polaroid span{
       display:block;
-      margin-top: 8px;
-      font-size: 11px;
+      margin-top:10px;
+      font-size:12px;
       color:#333;
       font-family: "Courier New", monospace;
     }
-    @keyframes aparecer{ to{ opacity:1; transform: translateY(0); } }
+    .polaroid small{
+      display:block;
+      margin-top:4px;
+      font-size:11px;
+      color:#666;
+      font-family: Arial, sans-serif;
+    }
+
+    @keyframes aparecer{ to { opacity:1; transform: translateY(0); } }
 
     .contador-final{
       background: rgba(255,255,255,0.25);
@@ -347,19 +363,20 @@
       margin: 10px auto 10px;
       font-size: 14px;
       line-height: 1.3;
-      width: min(420px, 92vw);
+      width: min(520px, 92vw);
+      backdrop-filter: blur(10px);
     }
     .texto-final{
       font-size: 16px;
-      font-weight: 800;
+      font-weight: 900;
       min-height: 70px;
       margin: 6px auto 0;
-      width: min(520px, 96vw);
+      width: min(650px, 96vw);
       padding: 0 8px;
     }
     .hidden-msg{
       margin: 12px auto 0;
-      width: min(420px, 92vw);
+      width: min(520px, 92vw);
       background: rgba(0,0,0,0.22);
       border: 1px solid rgba(255,255,255,0.16);
       padding: 12px;
@@ -367,7 +384,42 @@
       display:none;
       font-size: 13px;
       line-height: 1.35;
+      backdrop-filter: blur(10px);
     }
+
+    /* =========================
+       EXTRAS (NOVOS)
+       ========================= */
+    .extras{
+      margin: 14px auto 0;
+      width: min(650px, 96vw);
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .extra-card{
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 16px;
+      padding: 10px;
+      backdrop-filter: blur(10px);
+      text-align:center;
+    }
+    .extra-card .k{ font-size: 11px; opacity:.92; }
+    .extra-card .v{ font-size: 13px; font-weight: 900; margin-top:4px; }
+
+    .share-btn{
+      margin-top:8px;
+      border:none;
+      background: rgba(255,255,255,0.92);
+      color:#ff4d6d;
+      font-weight: 900;
+      border-radius: 999px;
+      padding: 9px 12px;
+      cursor:pointer;
+      width: 100%;
+    }
+
     .final-actions{
       display:flex;
       justify-content:center;
@@ -429,17 +481,14 @@
       to{ transform: translateY(110vh) rotate(280deg); opacity: 0; }
     }
 
-    /* =========================
-       PREMIUM: TRANSIÇÃO CINEMATOGRÁFICA
-       ========================= */
+    /* PREMIUM: TRANSIÇÃO CINEMATOGRÁFICA */
     #cinema{
       position: fixed;
       inset: 0;
       z-index: 9500;
       pointer-events: none;
       opacity: 0;
-      background:
-        radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12), rgba(0,0,0,0.72));
+      background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12), rgba(0,0,0,0.72));
       backdrop-filter: blur(0px);
       transition: opacity .55s ease, backdrop-filter .55s ease;
     }
@@ -448,9 +497,7 @@
       backdrop-filter: blur(12px);
     }
 
-    /* =========================
-       PREMIUM: ESTRELA CADENTE
-       ========================= */
+    /* PREMIUM: ESTRELA CADENTE */
     .shooting-star{
       position: fixed;
       width: 180px;
@@ -469,10 +516,14 @@
       100%{ opacity:0; transform: translate3d(680px, 260px, 0) rotate(-20deg); }
     }
 
+    @media (max-width: 720px){
+      .extras{ grid-template-columns: 1fr; }
+      .final-box{ width: min(520px, 96vw); }
+    }
+
     @media (max-width: 360px){
       h1{ font-size: 22px; }
       .subtitle{ font-size: 12px; }
-      .polaroid{ width: 110px; }
       .carousel{ max-width: 320px; }
       .carousel-slide{ height: 210px; }
     }
@@ -483,8 +534,6 @@
   <canvas id="stars"></canvas>
   <div id="gradGlow"></div>
   <div id="vignette"></div>
-
-  <!-- overlay cinematográfico -->
   <div id="cinema"></div>
 
   <div class="wrap">
@@ -509,20 +558,21 @@
 
       <div class="timer" id="timer"></div>
 
+      <!-- Ajuste as datas como você quiser -->
       <div class="timeline">
         <div class="tl-item"><b>✨ 01/01/2024</b><span>Nosso começo</span></div>
-        <div class="tl-item"><b>📸 15/08/2023</b><span>Um dia que ficou pra sempre</span></div>
+        <div class="tl-item"><b>📸 18/08/2024</b><span>Um dia que ficou pra sempre</span></div>
         <div class="tl-item"><b>❤️ 31/12/2024</b><span>Virada juntinhos</span></div>
       </div>
 
       <div class="carousel" aria-label="Carrossel de fotos">
         <div class="carousel-track" id="track">
-          <div class="carousel-slide"><img src="images/IMG-20240818-WA0020~2.jpg" alt="Foto 1" /></div>
-          <div class="carousel-slide"><img src="images/IMG-20250330-WA0054.jpg" alt="Foto 2" /></div>
-          <div class="carousel-slide"><img src="images/IMG_20240721_120318_384.webp" alt="Foto 3" /></div>
-          <div class="carousel-slide"><img src="images/IMG_20241205_220620_726.webp" alt="Foto 4" /></div>
-          <div class="carousel-slide"><img src="images/IMG_20241231_231718_292.webp" alt="Foto 5" /></div>
-          <div class="carousel-slide"><img src="images/IMG_20251111_145539_183.webp" alt="Foto 6" /></div>
+          <div class="carousel-slide"><img src="images/IMG-20240818-WA0020~2.jpg" alt="Foto 1" loading="eager" /></div>
+          <div class="carousel-slide"><img src="images/IMG-20250330-WA0054.jpg" alt="Foto 2" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="images/IMG_20240721_120318_384.webp" alt="Foto 3" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="images/IMG_20241205_220620_726.webp" alt="Foto 4" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="images/IMG_20241231_231718_292.webp" alt="Foto 5" loading="lazy" /></div>
+          <div class="carousel-slide"><img src="images/IMG_20251111_145539_183.webp" alt="Foto 6" loading="lazy" /></div>
         </div>
 
         <button class="carousel-btn prev" type="button" aria-label="Anterior" onclick="prevSlide()">‹</button>
@@ -536,30 +586,55 @@
     </div>
   </div>
 
+  <!-- TELA FINAL -->
   <div id="efeito-final">
     <div class="final-box">
+
+      <!-- POLAROIDS AJUSTADAS + DATA (NOVO) -->
       <div class="polaroids">
         <div class="polaroid" style="animation-delay:0.3s">
           <img src="images/IMG-20240818-WA0020~2.jpg" alt="Polaroid 1" />
           <span>Nosso começo 🤍</span>
+          <small>18/08/2024</small>
         </div>
+
         <div class="polaroid" style="animation-delay:0.8s">
           <img src="images/IMG_20241231_231718_292.webp" alt="Polaroid 2" />
           <span>Só nós ✨</span>
+          <small>31/12/2024</small>
         </div>
+
         <div class="polaroid" style="animation-delay:1.3s">
           <img src="images/IMG_20251111_145539_183.webp" alt="Polaroid 3" />
           <span>Pra sempre 💖</span>
+          <small>11/11/2025</small>
         </div>
       </div>
 
       <div class="contador-final" id="contador-final"></div>
+
       <div class="texto-final" id="texto-digitado"></div>
 
       <div class="hidden-msg" id="hiddenMsg">
         🌙 <b>Mensagem secreta:</b><br/>
         Se eu pudesse, eu guardava cada detalhe de nós dois num potinho — só pra abrir quando a saudade bater.
         Você é casa. ❤️
+      </div>
+
+      <!-- EXTRAS (NOVO) -->
+      <div class="extras">
+        <div class="extra-card">
+          <div class="k">💞 Dias juntos</div>
+          <div class="v" id="diasJuntos">--</div>
+        </div>
+        <div class="extra-card">
+          <div class="k">📅 Próximo mêsversário</div>
+          <div class="v" id="proxMesversario">--</div>
+        </div>
+        <div class="extra-card">
+          <div class="k">📲 Compartilhar</div>
+          <button class="share-btn" type="button" onclick="shareLove()">Enviar 💌</button>
+        </div>
       </div>
 
       <div class="final-actions">
@@ -570,6 +645,7 @@
     </div>
   </div>
 
+  <!-- LIGHTBOX -->
   <div id="lightbox" aria-label="Visualização de foto em tela cheia">
     <img id="lightboxImg" alt="Foto em tela cheia" />
     <div id="lightboxHint">Clique fora da foto ou aperte ESC para fechar</div>
@@ -597,11 +673,12 @@
       "Nunca se esqueça:\nVocê é a minha melhor escolha. E mesmo que não fosse, eu te escolheria um milhão de vezes. 💕";
 
     /* =========================
-       TIMER (anos/meses/dias reais)
+       UTIL: datas
        ========================= */
     function daysInMonth(year, monthIndex){
       return new Date(year, monthIndex + 1, 0).getDate();
     }
+
     function diffCalendar(from, to){
       let start = new Date(from);
       let end = new Date(to);
@@ -630,7 +707,7 @@
       const totalHours = Math.floor(totalMinutes / 60);
       const hours = totalHours % 24;
 
-      return { years, months, days, hours, minutes, seconds };
+      return { years, months, days, hours, minutes, seconds, totalMs };
     }
 
     function pad2(n){ return String(n).padStart(2,"0"); }
@@ -655,11 +732,26 @@
       return { totalD, h, min, sec };
     }
 
+    function getProximoMesversario(){
+      const now = new Date();
+      // próximo dia 1 do mês seguinte, você pode trocar para o "dia START_DATE.getDate()" se preferir
+      const targetDay = START_DATE.getDate();
+      let y = now.getFullYear();
+      let m = now.getMonth();
+
+      // tenta ainda no mês atual
+      let candidate = new Date(y, m, targetDay, 0, 0, 0);
+      if(candidate <= now){
+        candidate = new Date(y, m + 1, targetDay, 0, 0, 0);
+      }
+      return candidate;
+    }
+
     function atualizarTempo(){
       const now = new Date();
       document.getElementById("today").textContent = formatDateBR(now);
 
-      const { years, months, days, hours, minutes, seconds } = diffCalendar(START_DATE, now);
+      const { years, months, days, hours, minutes, seconds, totalMs } = diffCalendar(START_DATE, now);
 
       document.getElementById("timer").innerHTML = `
         <div class="time-box"><div class="number">${years}</div><div class="label">Anos</div></div>
@@ -676,6 +768,12 @@
       const n = getNextAnniversaryCountdown();
       document.getElementById("nextAnniv").textContent =
         `${n.totalD}d ${n.h}h ${n.min}m ${n.sec}s`;
+
+      // extras
+      const diasTotais = Math.floor(totalMs / (1000 * 60 * 60 * 24));
+      const prox = getProximoMesversario();
+      document.getElementById("diasJuntos").textContent = `${diasTotais} dias`;
+      document.getElementById("proxMesversario").textContent = formatDateBR(prox);
     }
 
     setInterval(atualizarTempo, 1000);
@@ -754,6 +852,16 @@
       const el = document.getElementById("texto-digitado");
       el.innerHTML = frase;
       if(typingInterval) clearInterval(typingInterval);
+    }
+
+    /* =========================
+       COMPARTILHAR
+       ========================= */
+    function shareLove(){
+      const url = window.location.href;
+      const msg = `Olha nosso cantinho 💖 ${url}`;
+      const wa = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+      window.open(wa, "_blank");
     }
 
     /* =========================
@@ -905,16 +1013,15 @@
     }, { passive:true });
 
     /* =========================
-       PREMIUM: PARALLAX (mouse + celular)
+       PREMIUM: PARALLAX
        ========================= */
     const glow = document.getElementById("gradGlow");
     const starsCanvas = document.getElementById("stars");
 
-    let px = 0, py = 0; // posição alvo (parallax)
-    let cx = 0, cy = 0; // posição atual (suavizada)
+    let px = 0, py = 0;
+    let cx = 0, cy = 0;
 
     function setParallaxTarget(xNorm, yNorm){
-      // xNorm/yNorm em -1..1
       px = xNorm;
       py = yNorm;
     }
@@ -926,7 +1033,6 @@
     }, { passive:true });
 
     window.addEventListener("deviceorientation", (e) => {
-      // gamma (esq/dir), beta (frente/tras)
       if (e.gamma == null || e.beta == null) return;
       const xNorm = Math.max(-1, Math.min(1, e.gamma / 30));
       const yNorm = Math.max(-1, Math.min(1, e.beta / 30));
@@ -934,11 +1040,9 @@
     }, true);
 
     function parallaxLoop(){
-      // suavização
       cx += (px - cx) * 0.06;
       cy += (py - cy) * 0.06;
 
-      // camadas em velocidades diferentes (premium)
       const glowX = cx * 18;
       const glowY = cy * 14;
       const starsX = cx * 10;
@@ -958,7 +1062,6 @@
       const s = document.createElement("div");
       s.className = "shooting-star";
 
-      // nasce em posições variadas no topo/esquerda
       const startTop = rand(40, Math.min(240, window.innerHeight * 0.35));
       const startLeft = rand(-180, window.innerWidth * 0.45);
 
@@ -969,7 +1072,6 @@
       setTimeout(() => s.remove(), 1400);
     }
 
-    // aparece “raramente”: intervalo aleatório 15–28s
     function scheduleShootingStar(){
       const t = Math.floor(rand(15000, 28000));
       setTimeout(() => {
@@ -980,7 +1082,7 @@
     scheduleShootingStar();
 
     /* =========================
-       STARS: canvas animado
+       STARS: canvas
        ========================= */
     const ctx = starsCanvas.getContext("2d");
     let W, H, stars;
