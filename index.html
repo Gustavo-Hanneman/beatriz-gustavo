@@ -6,81 +6,135 @@
   <title>Beatriz & Gustavo</title>
 
   <style>
-    body {
-      margin: 0;
+    :root{
+      --pink:#ff4d6d;
+      --glass: rgba(255,255,255,0.12);
+      --border: rgba(255,255,255,0.18);
+    }
+
+    body{
+      margin:0;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow-x: hidden;
+      color:#fff;
+      min-height:100vh;
+      overflow-x:hidden;
     }
 
-    /* CARD INICIAL */
-    .card {
-      background: rgba(255,255,255,0.12);
-      border-radius: 20px;
-      padding: 25px;
-      max-width: 380px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    /* BACKGROUNDS */
+    #stars{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+    }
+    #gradGlow{
+      position:fixed;
+      inset:-20%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 117, 140,.20), transparent 45%),
+                  radial-gradient(circle at 70% 60%, rgba(138, 43, 226,.18), transparent 45%),
+                  radial-gradient(circle at 40% 80%, rgba(255, 126, 179,.14), transparent 45%);
+      filter: blur(6px);
+      z-index:0;
+      pointer-events:none;
+    }
+
+    /* LAYOUT WRAPPER */
+    .wrap{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding: 22px 0;
+      position:relative;
+      z-index:2;
+    }
+
+    /* CARD */
+    .card{
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 22px;
+      padding: 24px;
+      width: min(390px, 92vw);
+      text-align:center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
       animation: fadeUp 1.2s ease;
-      position: relative;
-      z-index: 2;
+      position:relative;
+      z-index:2;
+      backdrop-filter: blur(10px);
     }
 
-    .fade-out { animation: fadeOut 1s forwards; }
+    .fade-out{ animation: fadeOut .9s forwards; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp{
+      from{ opacity:0; transform: translateY(28px); }
+      to{ opacity:1; transform: translateY(0); }
     }
-    @keyframes fadeOut { to { opacity: 0; transform: scale(0.95); } }
+    @keyframes fadeOut{
+      to{ opacity:0; transform: scale(.96); }
+    }
 
-    h1 { margin-bottom: 5px; font-size: 26px; }
-    .subtitle { font-size: 13px; opacity: 0.9; margin-bottom: 20px; }
+    h1{ margin: 0 0 6px; font-size: 26px; }
+    .subtitle{ font-size: 13px; opacity:.92; margin-bottom: 14px; }
+
+    /* INFO BOXES */
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .pill b{ font-weight: 800; }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0 2px;
+    }
+    .mini{
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      padding: 10px 12px;
+      text-align:left;
+      font-size: 12px;
+      line-height:1.3;
+    }
+    .mini .t{ opacity:.85; font-size:11px; margin-bottom:3px; }
+    .mini .v{ font-weight:800; font-size: 13px; }
 
     /* TIMER */
-    .timer {
-      display: grid;
+    .timer{
+      display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
+      margin-top: 12px;
     }
-    .time-box {
-      background: rgba(0,0,0,0.3);
-      border-radius: 12px;
+    .time-box{
+      background: rgba(0,0,0,0.30);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
       padding: 8px;
     }
-    .number { font-size: 18px; font-weight: bold; }
-    .label { font-size: 10px; opacity: 0.8; }
-
-    /* GALERIA */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 18px;
-    }
-    .gallery img {
-      width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform .15s ease;
-    }
-    .gallery img:hover { transform: scale(1.03); }
+    .number{ font-size: 18px; font-weight: 800; }
+    .label{ font-size: 10px; opacity: .82; }
 
     /* TIMELINE */
     .timeline{
-      margin-top: 18px;
+      margin-top: 16px;
       text-align:left;
       background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.10);
       padding: 12px;
-      border-radius: 14px;
+      border-radius: 16px;
     }
     .tl-item{
       display:flex;
@@ -93,38 +147,70 @@
     .tl-item:last-child{ border-bottom:none; }
     .tl-item span{ opacity:.9; }
 
-    /* BOTÕES */
-    button {
-      margin-top: 16px;
-      background: #ff4d6d;
+    /* CAROUSEL */
+    .carousel{
+      margin-top: 14px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      padding: 10px;
+      overflow:hidden;
+      position:relative;
+    }
+    .carousel-track{
+      display:flex;
+      gap: 10px;
+      transition: transform .45s ease;
+      will-change: transform;
+    }
+    .carousel img{
+      width: 100%;
+      max-width: 330px;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      border-radius: 14px;
+      cursor: pointer;
+      user-select:none;
+      flex: 0 0 100%;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.35);
+    }
+    .dots{
+      display:flex;
+      gap: 6px;
+      justify-content:center;
+      margin-top: 10px;
+    }
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.30);
+      border: 1px solid rgba(255,255,255,0.18);
+      cursor:pointer;
+    }
+    .dot.active{ background: rgba(255,255,255,0.92); }
+
+    /* BUTTONS */
+    .btn{
+      margin-top: 14px;
+      background: var(--pink);
       border: none;
-      padding: 12px 22px;
-      border-radius: 30px;
+      padding: 12px 20px;
+      border-radius: 999px;
       color: white;
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 800;
       cursor: pointer;
       transition: transform .15s ease;
     }
-    button:hover { transform: scale(1.05); }
-
-    /* BOTÃO MÚSICA */
-    #musicBtn{
-      position: fixed;
-      top: 14px;
-      right: 14px;
-      z-index: 10000;
-      margin: 0;
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.25);
-      backdrop-filter: blur(8px);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 13px;
+    .btn:hover{ transform: scale(1.05); }
+    .btn.secondary{
+      background: rgba(255,255,255,0.20);
+      border: 1px solid rgba(255,255,255,0.22);
     }
 
     /* CORAÇÕES */
-    .heart {
+    .heart{
       position: fixed;
       bottom: -20px;
       animation: floatUp 6s linear forwards;
@@ -132,88 +218,111 @@
       z-index: 1;
       pointer-events: none;
     }
-    @keyframes floatUp { to { transform: translateY(-110vh); opacity: 0; } }
+    .tap-heart{
+      position: fixed;
+      animation: pop 1.2s ease forwards;
+      z-index: 20000;
+      pointer-events:none;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.45));
+    }
+    @keyframes floatUp{ to{ transform: translateY(-110vh); opacity:0; } }
+    @keyframes pop{
+      0%{ transform: translate(-50%,-50%) scale(.2); opacity:0; }
+      15%{ opacity:1; }
+      65%{ transform: translate(-50%,-55%) scale(1); opacity:1; }
+      100%{ transform: translate(-50%,-80%) scale(1.1); opacity:0; }
+    }
 
-    /* ===== EFEITO FINAL ===== */
-    #efeito-final {
+    /* FINAL */
+    #efeito-final{
       position: fixed;
       inset: 0;
       background: linear-gradient(135deg, #ff758c, #ff7eb3, #8a2be2);
-      display: none;
-      justify-content: center;
-      align-items: center;
+      display:none;
+      justify-content:center;
+      align-items:center;
       z-index: 9999;
       padding: 18px;
     }
-    .final-box { text-align: center; animation: fadeUp 1.2s ease; }
+    .final-box{
+      text-align:center;
+      animation: fadeUp 1.2s ease;
+      width: min(520px, 96vw);
+    }
 
     /* POLAROIDS */
-    .polaroids {
-      display: flex;
+    .polaroids{
+      display:flex;
       gap: 18px;
-      justify-content: center;
-      margin-bottom: 25px;
+      justify-content:center;
+      margin-bottom: 18px;
       flex-wrap: wrap;
     }
-    .polaroid {
-      background: white;
-      padding: 10px 10px 20px;
-      width: 110px;
-      border-radius: 6px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.4);
-      opacity: 0;
+    .polaroid{
+      background:white;
+      padding: 10px 10px 18px;
+      width: 120px;
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.45);
+      opacity:0;
       transform: translateY(30px);
-      animation: aparecer 0.8s forwards;
+      animation: aparecer .8s forwards;
     }
-    .polaroid img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 4px;
+    .polaroid img{
+      width:100%;
+      height: 105px;
+      object-fit:cover;
+      border-radius: 6px;
+      cursor:pointer;
     }
-    .polaroid span {
-      display: block;
-      margin-top: 6px;
+    .polaroid span{
+      display:block;
+      margin-top: 8px;
       font-size: 11px;
-      color: #333;
-      font-family: 'Courier New', monospace;
+      color:#333;
+      font-family: "Courier New", monospace;
     }
-    @keyframes aparecer { to { opacity: 1; transform: translateY(0); } }
+    @keyframes aparecer{ to{ opacity:1; transform: translateY(0); } }
 
-    .contador-final {
+    .contador-final{
       background: rgba(255,255,255,0.25);
-      padding: 14px 20px;
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 14px 18px;
       border-radius: 18px;
-      margin-bottom: 12px;
+      margin: 10px auto 10px;
       font-size: 14px;
       line-height: 1.3;
+      width: min(420px, 92vw);
     }
-
-    .texto-final {
+    .texto-final{
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 800;
       min-height: 70px;
-      padding: 0 6px;
-      white-space: normal;
+      margin: 6px auto 0;
+      width: min(520px, 96vw);
+      padding: 0 8px;
     }
-
-    /* BOTÕES FINAL */
+    .hidden-msg{
+      margin: 12px auto 0;
+      width: min(420px, 92vw);
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 12px;
+      border-radius: 16px;
+      display:none;
+      font-size: 13px;
+      line-height: 1.35;
+    }
     .final-actions{
       display:flex;
       justify-content:center;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 14px;
     }
-
-    .ver-de-novo {
-      background: rgba(255,255,255,0.9);
-      color: #ff4d6d;
-    }
-
-    .secondary {
-      background: rgba(255,255,255,0.22);
-      border: 1px solid rgba(255,255,255,0.22);
+    .ver-de-novo{
+      background: rgba(255,255,255,0.92);
+      color: var(--pink);
     }
 
     /* LIGHTBOX */
@@ -239,78 +348,124 @@
       left: 50%;
       transform: translateX(-50%);
       font-size: 12px;
-      opacity: .85;
+      opacity: .86;
       background: rgba(255,255,255,0.14);
       border: 1px solid rgba(255,255,255,0.18);
       padding: 8px 12px;
       border-radius: 999px;
+      backdrop-filter: blur(8px);
     }
 
-    /* Ajustes mobile */
+    /* CONFETTI */
+    .confetti{
+      position: fixed;
+      top: -12px;
+      width: 10px;
+      height: 14px;
+      opacity: .9;
+      z-index: 15000;
+      animation: confFall 2.6s linear forwards;
+      pointer-events:none;
+      border-radius: 3px;
+      transform: rotate(15deg);
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+    }
+    @keyframes confFall{
+      to{ transform: translateY(110vh) rotate(280deg); opacity: 0; }
+    }
+
+    /* MOBILE tweaks */
     @media (max-width: 360px){
       h1{ font-size: 22px; }
       .subtitle{ font-size: 12px; }
-      .polaroid{ width: 100px; }
+      .polaroid{ width: 110px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- BOTÃO + ÁUDIO (troque o arquivo por um seu: /music/musica.mp3) -->
-  <button id="musicBtn" type="button" aria-label="Tocar ou pausar música">▶️ Tocar música</button>
-  <audio id="bgMusic" loop preload="none">
-    <source src="music/musica.mp3" type="audio/mpeg">
-  </audio>
+  <!-- BACKGROUNDS -->
+  <canvas id="stars"></canvas>
+  <div id="gradGlow"></div>
 
-  <div class="card" id="card">
-    <h1>Beatriz ❤️ Gustavo</h1>
-    <div class="subtitle">Desde 01 de janeiro de 2024</div>
+  <div class="wrap">
+    <div class="card" id="card">
+      <h1>Beatriz ❤️ Gustavo</h1>
+      <div class="subtitle">Desde 01 de janeiro de 2024</div>
 
-    <div class="timer" id="timer"></div>
+      <div class="pill">
+        ⏳ <span>Próximo “aniversário” em</span> <b id="nextAnniv">--</b>
+      </div>
 
-    <!-- TIMELINE (edite as datas e textos como quiser) -->
-    <div class="timeline">
-      <div class="tl-item"><b>✨ 01/01/2024</b><span>Nosso começo</span></div>
-      <div class="tl-item"><b>📸 18/08/2024</b><span>Um dia que ficou pra sempre</span></div>
-      <div class="tl-item"><b>❤️ 31/12/2024</b><span>Virada juntinhos</span></div>
+      <div class="grid2">
+        <div class="mini">
+          <div class="t">Hoje é</div>
+          <div class="v" id="today">--</div>
+        </div>
+        <div class="mini">
+          <div class="t">Modo</div>
+          <div class="v">💖 Romântico</div>
+        </div>
+      </div>
+
+      <div class="timer" id="timer"></div>
+
+      <!-- TIMELINE (edite as datas/textos) -->
+      <div class="timeline">
+        <div class="tl-item"><b>✨ 01/01/2024</b><span>Nosso começo</span></div>
+        <div class="tl-item"><b>📸 18/08/2024</b><span>Um dia que ficou pra sempre</span></div>
+        <div class="tl-item"><b>❤️ 31/12/2024</b><span>Virada juntinhos</span></div>
+      </div>
+
+      <!-- CAROUSEL (auto) -->
+      <div class="carousel" aria-label="Carrossel de fotos">
+        <div class="carousel-track" id="track">
+          <img src="images/IMG-20240818-WA0020~2.jpg" alt="Foto 1" />
+          <img src="images/IMG-20250330-WA0054.jpg" alt="Foto 2" />
+          <img src="images/IMG_20240721_120318_384.webp" alt="Foto 3" />
+          <img src="images/IMG_20241205_220620_726.webp" alt="Foto 4" />
+          <img src="images/IMG_20241231_231718_292.webp" alt="Foto 5" />
+          <img src="images/IMG_20251111_145539_183.webp" alt="Foto 6" />
+        </div>
+        <div class="dots" id="dots"></div>
+      </div>
+
+      <button class="btn" type="button" onclick="mostrarFinal()">Clique para uma surpresa 💌</button>
+      <button class="btn secondary" type="button" onclick="toggleAutoplay()">⏯️ Pausar/Voltar carrossel</button>
     </div>
-
-    <div class="gallery">
-      <img src="images/IMG-20240818-WA0020~2.jpg" alt="Foto 1">
-      <img src="images/IMG-20250330-WA0054.jpg" alt="Foto 2">
-      <img src="images/IMG_20240721_120318_384.webp" alt="Foto 3">
-      <img src="images/IMG_20241205_220620_726.webp" alt="Foto 4">
-      <img src="images/IMG_20241231_231718_292.webp" alt="Foto 5">
-      <img src="images/IMG_20251111_145539_183.webp" alt="Foto 6">
-    </div>
-
-    <button type="button" onclick="mostrarFinal()">Clique para uma surpresa 💌</button>
   </div>
 
+  <!-- FINAL -->
   <div id="efeito-final">
     <div class="final-box">
       <div class="polaroids">
         <div class="polaroid" style="animation-delay:0.3s">
-          <img src="images/IMG-20240818-WA0020~2.jpg" alt="Polaroid 1">
+          <img src="images/IMG-20240818-WA0020~2.jpg" alt="Polaroid 1" />
           <span>Nosso começo 🤍</span>
         </div>
         <div class="polaroid" style="animation-delay:0.8s">
-          <img src="images/IMG_20241231_231718_292.webp" alt="Polaroid 2">
+          <img src="images/IMG_20241231_231718_292.webp" alt="Polaroid 2" />
           <span>Só nós ✨</span>
         </div>
         <div class="polaroid" style="animation-delay:1.3s">
-          <img src="images/IMG_20251116_155233_488.webp" alt="Polaroid 3">
+          <img src="images/IMG_20251111_145539_183.webp" alt="Polaroid 3" />
           <span>Pra sempre 💖</span>
         </div>
       </div>
 
       <div class="contador-final" id="contador-final"></div>
-
       <div class="texto-final" id="texto-digitado"></div>
 
+      <div class="hidden-msg" id="hiddenMsg">
+        🌙 <b>Mensagem secreta:</b><br/>
+        Se eu pudesse, eu guardava cada detalhe de nós dois num potinho — só pra abrir quando a saudade bater.
+        Você é casa. ❤️
+      </div>
+
       <div class="final-actions">
-        <button type="button" class="secondary" onclick="novaFrase()">💬 Outra mensagem</button>
-        <button type="button" class="ver-de-novo" onclick="verDeNovo()">🔁 Ver de novo</button>
+        <button class="btn secondary" type="button" onclick="novaFrase()">💬 Outra mensagem</button>
+        <button class="btn secondary" type="button" onclick="soltarConfete()">🎉 Confete</button>
+        <button class="btn ver-de-novo" type="button" onclick="verDeNovo()">🔁 Ver de novo</button>
       </div>
     </div>
   </div>
@@ -322,54 +477,53 @@
   </div>
 
   <script>
-    // ===== CONFIGURAÇÃO =====
-    const startDate = new Date(2024, 0, 1, 0, 0, 0); // 01/01/2024 00:00:00 (mês 0 = janeiro)
+    /* =========================
+       CONFIGURAÇÕES
+       ========================= */
+    const START_DATE = new Date(2024, 0, 1, 0, 0, 0); // 01/01/2024
+    const CAROUSEL_INTERVAL_MS = 3500;
 
-    // Frases aleatórias (edite/adicione à vontade)
-    const frases = [
+    const FRASES = [
       "Você é meu lugar favorito. 💖",
       "Te escolheria em todas as vidas. ✨",
       "Meu amor por você só cresce. 🌙",
       "Obrigado por existir do meu lado. 🤍",
       "Com você, tudo faz sentido. 💕",
-      "Se eu tivesse que recomeçar, eu te escolheria de novo. ❤️"
+      "Se eu tivesse que recomeçar, eu te escolheria de novo. ❤️",
+      "Você é a calmaria que meu coração sempre procurou. ☁️",
+      "Entre mil caminhos, eu escolho o seu. 💘"
     ];
 
-    // Texto digitado inicial
-    const textoDigitadoInicial =
+    const TEXTO_DIGITADO_INICIAL =
       "Nunca se esqueça:\nVocê é a minha melhor escolha. E mesmo que não fosse, eu te escolheria um milhão de vezes. 💕";
 
-    // ===== TIMER (anos/meses/dias REAIS, sem aproximação) =====
-    function daysInMonth(year, monthIndex) {
+    /* =========================
+       UTIL: datas (anos/meses/dias reais)
+       ========================= */
+    function daysInMonth(year, monthIndex){
       return new Date(year, monthIndex + 1, 0).getDate();
     }
 
-    function diffCalendar(from, to) {
-      // garante ordem
+    function diffCalendar(from, to){
       let start = new Date(from);
       let end = new Date(to);
-      if (end < start) [start, end] = [end, start];
+      if(end < start) [start, end] = [end, start];
 
-      // componentes
       let years = end.getFullYear() - start.getFullYear();
       let months = end.getMonth() - start.getMonth();
       let days = end.getDate() - start.getDate();
 
-      // ajusta dias negativos emprestando um mês
-      if (days < 0) {
+      if(days < 0){
         months -= 1;
         const prevMonth = (end.getMonth() - 1 + 12) % 12;
         const prevMonthYear = prevMonth === 11 ? end.getFullYear() - 1 : end.getFullYear();
         days += daysInMonth(prevMonthYear, prevMonth);
       }
-
-      // ajusta meses negativos emprestando um ano
-      if (months < 0) {
+      if(months < 0){
         years -= 1;
         months += 12;
       }
 
-      // diferença total para horas/min/seg
       const totalMs = end - start;
       const totalSeconds = Math.floor(totalMs / 1000);
       const seconds = totalSeconds % 60;
@@ -381,9 +535,33 @@
       return { years, months, days, hours, minutes, seconds };
     }
 
-    function atualizarTempo() {
+    function pad2(n){ return String(n).padStart(2,"0"); }
+    function formatDateBR(d){
+      return `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()}`;
+    }
+
+    function getNextAnniversaryCountdown(){
       const now = new Date();
-      const { years, months, days, hours, minutes, seconds } = diffCalendar(startDate, now);
+      const next = new Date(now.getFullYear(), START_DATE.getMonth(), START_DATE.getDate(), 0, 0, 0);
+      if(now >= next) next.setFullYear(now.getFullYear() + 1);
+
+      const ms = next - now;
+      const totalSec = Math.max(0, Math.floor(ms/1000));
+      const sec = totalSec % 60;
+      const totalMin = Math.floor(totalSec/60);
+      const min = totalMin % 60;
+      const totalH = Math.floor(totalMin/60);
+      const h = totalH % 24;
+      const totalD = Math.floor(totalH/24);
+
+      return { totalD, h, min, sec };
+    }
+
+    function atualizarTempo(){
+      const now = new Date();
+      document.getElementById("today").textContent = formatDateBR(now);
+
+      const { years, months, days, hours, minutes, seconds } = diffCalendar(START_DATE, now);
 
       document.getElementById("timer").innerHTML = `
         <div class="time-box"><div class="number">${years}</div><div class="label">Anos</div></div>
@@ -396,105 +574,193 @@
 
       document.getElementById("contador-final").innerHTML =
         `${years} anos • ${months} meses • ${days} dias<br>${hours}h ${minutes}m ${seconds}s juntos ❤️`;
+
+      const n = getNextAnniversaryCountdown();
+      document.getElementById("nextAnniv").textContent =
+        `${n.totalD}d ${n.h}h ${n.min}m ${n.sec}s`;
     }
 
     setInterval(atualizarTempo, 1000);
     atualizarTempo();
 
-    // ===== FINAL (transição + texto digitando) =====
-    function mostrarFinal() {
+    /* =========================
+       FINAL: transição + texto digitando + msg escondida
+       ========================= */
+    let typingInterval = null;
+    let hiddenTimeout = null;
+
+    function digitarTexto(texto){
+      const el = document.getElementById("texto-digitado");
+      el.innerHTML = "";
+      let i = 0;
+      if(typingInterval) clearInterval(typingInterval);
+
+      typingInterval = setInterval(() => {
+        const ch = texto[i];
+        el.innerHTML += ch === "\n" ? "<br>" : ch;
+        i++;
+        if(i >= texto.length) clearInterval(typingInterval);
+      }, 40);
+    }
+
+    function mostrarFinal(){
       const card = document.getElementById("card");
       card.classList.add("fade-out");
 
       setTimeout(() => {
         card.style.display = "none";
         document.getElementById("efeito-final").style.display = "flex";
-        digitarTexto(textoDigitadoInicial);
-      }, 900);
+
+        document.getElementById("hiddenMsg").style.display = "none";
+        digitarTexto(TEXTO_DIGITADO_INICIAL);
+
+        if(hiddenTimeout) clearTimeout(hiddenTimeout);
+        hiddenTimeout = setTimeout(() => {
+          document.getElementById("hiddenMsg").style.display = "block";
+        }, 6500);
+
+        soltarConfete(40);
+      }, 850);
     }
 
-    function verDeNovo() {
+    function verDeNovo(){
       document.getElementById("efeito-final").style.display = "none";
       const card = document.getElementById("card");
       card.style.display = "block";
       card.classList.remove("fade-out");
+      if(hiddenTimeout) clearTimeout(hiddenTimeout);
+      if(typingInterval) clearInterval(typingInterval);
     }
 
-    let typingInterval = null;
-
-    function digitarTexto(texto) {
-      const el = document.getElementById("texto-digitado");
-      el.innerHTML = "";
-      let i = 0;
-
-      if (typingInterval) clearInterval(typingInterval);
-
-      typingInterval = setInterval(() => {
-        const ch = texto[i];
-        el.innerHTML += ch === "\n" ? "<br>" : ch;
-        i++;
-        if (i >= texto.length) clearInterval(typingInterval);
-      }, 40);
-    }
-
-    function novaFrase() {
-      const frase = frases[Math.floor(Math.random() * frases.length)];
-      // troca instantânea (sem digitar) pra ficar responsivo
+    function novaFrase(){
+      const frase = FRASES[Math.floor(Math.random() * FRASES.length)];
       const el = document.getElementById("texto-digitado");
       el.innerHTML = frase;
-      if (typingInterval) clearInterval(typingInterval);
+      if(typingInterval) clearInterval(typingInterval);
     }
 
-    // ===== LIGHTBOX (clicar na galeria abre tela cheia) =====
+    /* =========================
+       LIGHTBOX
+       ========================= */
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
 
-    document.querySelectorAll(".gallery img").forEach(img => {
-      img.addEventListener("click", () => {
-        lightboxImg.src = img.src;
-        lightbox.style.display = "flex";
-      });
-    });
-
-    function fecharLightbox() { lightbox.style.display = "none"; }
-
-    lightbox.addEventListener("click", (e) => {
-      // fecha ao clicar fora da imagem
-      if (e.target === lightbox) fecharLightbox();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") fecharLightbox();
-    });
-
-    // ===== MÚSICA (play/pausa + estado salvo) =====
-    const bgMusic = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
-
-    function updateMusicBtn() {
-      const playing = !bgMusic.paused;
-      musicBtn.textContent = playing ? "⏸️ Pausar música" : "▶️ Tocar música";
+    function openLightbox(src){
+      lightboxImg.src = src;
+      lightbox.style.display = "flex";
+    }
+    function closeLightbox(){
+      lightbox.style.display = "none";
     }
 
-    musicBtn.addEventListener("click", async () => {
-      try {
-        if (bgMusic.paused) {
-          await bgMusic.play();
-          localStorage.setItem("music", "on");
-        } else {
-          bgMusic.pause();
-          localStorage.setItem("music", "off");
-        }
-        updateMusicBtn();
-      } catch (e) {
-        alert("O navegador bloqueou o autoplay. Clique novamente 😊");
-      }
+    lightbox.addEventListener("click", (e) => {
+      if(e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeLightbox();
     });
 
-    // apenas atualiza o botão no carregamento
-    updateMusicBtn();
+    document.querySelectorAll(".carousel img").forEach(img => {
+      img.addEventListener("click", () => openLightbox(img.src));
+    });
+    document.querySelectorAll(".polaroid img").forEach(img => {
+      img.addEventListener("click", () => openLightbox(img.src));
+    });
 
-    // ===== CORAÇÕES =====
+    /* =========================
+       CAROUSEL: autoplay + dots + pause
+       ========================= */
+    const track = document.getElementById("track");
+    const imgs = Array.from(track.querySelectorAll("img"));
+    const dotsWrap = document.getElementById("dots");
+    let idx = 0;
+    let autoplay = true;
+    let carTimer = null;
+
+    function renderDots(){
+      dotsWrap.innerHTML = "";
+      imgs.forEach((_, i) => {
+        const d = document.createElement("div");
+        d.className = "dot" + (i === idx ? " active" : "");
+        d.addEventListener("click", () => {
+          idx = i;
+          updateCarousel();
+          restartCarousel();
+        });
+        dotsWrap.appendChild(d);
+      });
+    }
+
+    function updateCarousel(){
+      track.style.transform = `translateX(${-idx * 100}%)`;
+      dotsWrap.querySelectorAll(".dot").forEach((d, i) => {
+        d.classList.toggle("active", i === idx);
+      });
+    }
+
+    function nextSlide(){
+      idx = (idx + 1) % imgs.length;
+      updateCarousel();
+    }
+
+    function startCarousel(){
+      if(carTimer) clearInterval(carTimer);
+      carTimer = setInterval(() => {
+        if(autoplay) nextSlide();
+      }, CAROUSEL_INTERVAL_MS);
+    }
+
+    function restartCarousel(){
+      startCarousel();
+    }
+
+    function toggleAutoplay(){
+      autoplay = !autoplay;
+    }
+
+    renderDots();
+    updateCarousel();
+    startCarousel();
+
+    // swipe mobile
+    let startX = null;
+    track.addEventListener("touchstart", (e) => startX = e.touches[0].clientX, { passive:true });
+    track.addEventListener("touchend", (e) => {
+      if(startX === null) return;
+      const endX = e.changedTouches[0].clientX;
+      const dx = endX - startX;
+      if(Math.abs(dx) > 40){
+        if(dx < 0) idx = (idx + 1) % imgs.length;
+        else idx = (idx - 1 + imgs.length) % imgs.length;
+        updateCarousel();
+        restartCarousel();
+      }
+      startX = null;
+    });
+
+    /* =========================
+       CONFETTI
+       ========================= */
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+
+    function soltarConfete(qtd = 30){
+      for(let i=0;i<qtd;i++){
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = rand(0, 100) + "vw";
+        c.style.width = rand(7, 12) + "px";
+        c.style.height = rand(10, 16) + "px";
+        c.style.animationDuration = rand(2.0, 3.2) + "s";
+        c.style.transform = `rotate(${rand(0, 360)}deg)`;
+        c.style.background = `hsl(${Math.floor(rand(0, 360))}, 90%, 65%)`;
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3400);
+      }
+    }
+
+    /* =========================
+       CORAÇÕES: flutuando + ao clicar
+       ========================= */
     setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -504,6 +770,74 @@
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 6000);
     }, 700);
+
+    document.addEventListener("click", (e) => {
+      const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+      if(["button","input","label","audio"].includes(tag)) return;
+
+      const h = document.createElement("div");
+      h.className = "tap-heart";
+      h.innerText = "💖";
+      h.style.left = e.clientX + "px";
+      h.style.top = e.clientY + "px";
+      h.style.fontSize = (18 + Math.random() * 16) + "px";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1200);
+    }, { passive:true });
+
+    /* =========================
+       STARS: canvas animado
+       ========================= */
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    let W, H, stars;
+
+    function resize(){
+      W = canvas.width = window.innerWidth * devicePixelRatio;
+      H = canvas.height = window.innerHeight * devicePixelRatio;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      initStars();
+    }
+
+    function initStars(){
+      const count = Math.floor((window.innerWidth * window.innerHeight) / 18000) * 40;
+      stars = Array.from({length: Math.max(140, count)}, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: (Math.random() * 1.4 + 0.4) * devicePixelRatio,
+        a: Math.random() * 0.8 + 0.2,
+        s: (Math.random() * 0.35 + 0.05) * devicePixelRatio,
+        tw: Math.random() * 0.02 + 0.005
+      }));
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+
+      for(const st of stars){
+        st.y += st.s;
+        st.x += Math.sin(st.y * 0.003) * 0.12 * devicePixelRatio;
+
+        st.a += (Math.random() - 0.5) * st.tw;
+        st.a = Math.max(0.15, Math.min(0.95, st.a));
+
+        if(st.y > H + 10) st.y = -10;
+        if(st.x > W + 10) st.x = -10;
+        if(st.x < -10) st.x = W + 10;
+
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, st.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${st.a})`;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+    draw();
   </script>
 </body>
 </html>
