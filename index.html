@@ -31,15 +31,16 @@
     #gradGlow{
       position:fixed;
       inset:-20%;
-      background: radial-gradient(circle at 30% 30%, rgba(255, 117, 140,.20), transparent 45%),
-                  radial-gradient(circle at 70% 60%, rgba(138, 43, 226,.18), transparent 45%),
-                  radial-gradient(circle at 40% 80%, rgba(255, 126, 179,.14), transparent 45%);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255, 117, 140,.20), transparent 45%),
+        radial-gradient(circle at 70% 60%, rgba(138, 43, 226,.18), transparent 45%),
+        radial-gradient(circle at 40% 80%, rgba(255, 126, 179,.14), transparent 45%);
       filter: blur(6px);
       z-index:0;
       pointer-events:none;
     }
 
-    /* LAYOUT WRAPPER */
+    /* LAYOUT */
     .wrap{
       min-height:100vh;
       display:flex;
@@ -147,48 +148,87 @@
     .tl-item:last-child{ border-bottom:none; }
     .tl-item span{ opacity:.9; }
 
-    /* CAROUSEL */
+    /* =========================
+       CARROSSEL PROFISSIONAL
+       ========================= */
     .carousel{
-      margin-top: 14px;
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 16px;
-      padding: 10px;
-      overflow:hidden;
       position:relative;
+      max-width:340px;
+      margin: 16px auto 0;
+      overflow:hidden;
+      border-radius:16px;
+      background: rgba(0,0,0,0.20);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow:0 10px 30px rgba(0,0,0,0.40);
     }
+
     .carousel-track{
       display:flex;
-      gap: 10px;
-      transition: transform .45s ease;
+      transition:transform 0.5s ease;
       will-change: transform;
     }
-    .carousel img{
-      width: 100%;
-      max-width: 330px;
-      aspect-ratio: 16/10;
-      object-fit: cover;
-      border-radius: 14px;
-      cursor: pointer;
-      user-select:none;
-      flex: 0 0 100%;
-      box-shadow: 0 14px 35px rgba(0,0,0,0.35);
-    }
-    .dots{
+
+    .carousel-slide{
+      min-width:100%;
+      height:230px;
       display:flex;
-      gap: 6px;
       justify-content:center;
-      margin-top: 10px;
+      align-items:center;
+      background:#000; /* borda elegante quando a foto não preenche */
     }
-    .dot{
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.30);
+
+    .carousel-slide img{
+      width:100%;
+      height:100%;
+      object-fit: cover; /* encaixa bem cortando o excesso */
+      cursor:pointer;
+      user-select:none;
+      transition:transform .25s ease;
+    }
+
+    .carousel-slide img:hover{
+      transform: scale(1.03);
+    }
+
+    /* botões laterais */
+    .carousel-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(0,0,0,0.52);
+      border:1px solid rgba(255,255,255,0.20);
+      color:white;
+      font-size:22px;
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:5;
+    }
+    .carousel-btn:hover{ transform: translateY(-50%) scale(1.05); }
+    .prev{ left:10px }
+    .next{ right:10px }
+
+    /* dots */
+    .carousel-dots{
+      display:flex;
+      justify-content:center;
+      gap:6px;
+      padding:10px;
+      background: rgba(0,0,0,0.18);
+    }
+    .carousel-dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.40);
       border: 1px solid rgba(255,255,255,0.18);
       cursor:pointer;
     }
-    .dot.active{ background: rgba(255,255,255,0.92); }
+    .carousel-dot.active{ background: #fff; }
 
     /* BUTTONS */
     .btn{
@@ -374,17 +414,17 @@
       to{ transform: translateY(110vh) rotate(280deg); opacity: 0; }
     }
 
-    /* MOBILE tweaks */
     @media (max-width: 360px){
       h1{ font-size: 22px; }
       .subtitle{ font-size: 12px; }
       .polaroid{ width: 110px; }
+      .carousel{ max-width: 320px; }
+      .carousel-slide{ height: 210px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- BACKGROUNDS -->
   <canvas id="stars"></canvas>
   <div id="gradGlow"></div>
 
@@ -417,17 +457,21 @@
         <div class="tl-item"><b>❤️ 31/12/2024</b><span>Virada juntinhos</span></div>
       </div>
 
-      <!-- CAROUSEL (auto) -->
+      <!-- CARROSSEL PROFISSIONAL -->
       <div class="carousel" aria-label="Carrossel de fotos">
         <div class="carousel-track" id="track">
-          <img src="images/IMG-20240818-WA0020~2.jpg" alt="Foto 1" />
-          <img src="images/IMG-20250330-WA0054.jpg" alt="Foto 2" />
-          <img src="images/IMG_20240721_120318_384.webp" alt="Foto 3" />
-          <img src="images/IMG_20241205_220620_726.webp" alt="Foto 4" />
-          <img src="images/IMG_20241231_231718_292.webp" alt="Foto 5" />
-          <img src="images/IMG_20251111_145539_183.webp" alt="Foto 6" />
+          <div class="carousel-slide"><img src="images/IMG-20240818-WA0020~2.jpg" alt="Foto 1" /></div>
+          <div class="carousel-slide"><img src="images/IMG-20250330-WA0054.jpg" alt="Foto 2" /></div>
+          <div class="carousel-slide"><img src="images/IMG_20240721_120318_384.webp" alt="Foto 3" /></div>
+          <div class="carousel-slide"><img src="images/IMG_20241205_220620_726.webp" alt="Foto 4" /></div>
+          <div class="carousel-slide"><img src="images/IMG_20241231_231718_292.webp" alt="Foto 5" /></div>
+          <div class="carousel-slide"><img src="images/IMG_20251111_145539_183.webp" alt="Foto 6" /></div>
         </div>
-        <div class="dots" id="dots"></div>
+
+        <button class="carousel-btn prev" type="button" aria-label="Anterior" onclick="prevSlide()">‹</button>
+        <button class="carousel-btn next" type="button" aria-label="Próxima" onclick="nextSlide()">›</button>
+
+        <div class="carousel-dots" id="dots"></div>
       </div>
 
       <button class="btn" type="button" onclick="mostrarFinal()">Clique para uma surpresa 💌</button>
@@ -481,7 +525,7 @@
        CONFIGURAÇÕES
        ========================= */
     const START_DATE = new Date(2024, 0, 1, 0, 0, 0); // 01/01/2024
-    const CAROUSEL_INTERVAL_MS = 3500;
+    const CAROUSEL_INTERVAL_MS = 4000;
 
     const FRASES = [
       "Você é meu lugar favorito. 💖",
@@ -584,7 +628,7 @@
     atualizarTempo();
 
     /* =========================
-       FINAL: transição + texto digitando + msg escondida
+       FINAL
        ========================= */
     let typingInterval = null;
     let hiddenTimeout = null;
@@ -660,47 +704,55 @@
       if(e.key === "Escape") closeLightbox();
     });
 
-    document.querySelectorAll(".carousel img").forEach(img => {
+    // abre lightbox ao clicar na imagem do carrossel
+    document.querySelectorAll(".carousel-slide img").forEach(img => {
       img.addEventListener("click", () => openLightbox(img.src));
     });
+    // e ao clicar nas polaroids
     document.querySelectorAll(".polaroid img").forEach(img => {
       img.addEventListener("click", () => openLightbox(img.src));
     });
 
     /* =========================
-       CAROUSEL: autoplay + dots + pause
+       CARROSSEL PROFISSIONAL
        ========================= */
     const track = document.getElementById("track");
-    const imgs = Array.from(track.querySelectorAll("img"));
-    const dotsWrap = document.getElementById("dots");
-    let idx = 0;
+    const slides = Array.from(document.querySelectorAll(".carousel-slide"));
+    const dotsContainer = document.getElementById("dots");
+
+    let index = 0;
     let autoplay = true;
     let carTimer = null;
 
-    function renderDots(){
-      dotsWrap.innerHTML = "";
-      imgs.forEach((_, i) => {
-        const d = document.createElement("div");
-        d.className = "dot" + (i === idx ? " active" : "");
-        d.addEventListener("click", () => {
-          idx = i;
-          updateCarousel();
-          restartCarousel();
-        });
-        dotsWrap.appendChild(d);
-      });
-    }
+    // cria dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement("div");
+      dot.className = "carousel-dot";
+      dot.addEventListener("click", () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
 
     function updateCarousel(){
-      track.style.transform = `translateX(${-idx * 100}%)`;
-      dotsWrap.querySelectorAll(".dot").forEach((d, i) => {
-        d.classList.toggle("active", i === idx);
+      track.style.transform = `translateX(-${index * 100}%)`;
+      document.querySelectorAll(".carousel-dot").forEach((d, i) => {
+        d.classList.toggle("active", i === index);
       });
     }
 
     function nextSlide(){
-      idx = (idx + 1) % imgs.length;
+      index = (index + 1) % slides.length;
       updateCarousel();
+    }
+
+    function prevSlide(){
+      index = (index - 1 + slides.length) % slides.length;
+      updateCarousel();
+    }
+
+    function goToSlide(i){
+      index = i;
+      updateCarousel();
+      restartCarousel();
     }
 
     function startCarousel(){
@@ -718,10 +770,6 @@
       autoplay = !autoplay;
     }
 
-    renderDots();
-    updateCarousel();
-    startCarousel();
-
     // swipe mobile
     let startX = null;
     track.addEventListener("touchstart", (e) => startX = e.touches[0].clientX, { passive:true });
@@ -729,14 +777,15 @@
       if(startX === null) return;
       const endX = e.changedTouches[0].clientX;
       const dx = endX - startX;
-      if(Math.abs(dx) > 40){
-        if(dx < 0) idx = (idx + 1) % imgs.length;
-        else idx = (idx - 1 + imgs.length) % imgs.length;
-        updateCarousel();
-        restartCarousel();
+      if(Math.abs(dx) > 50){
+        if(dx < 0) nextSlide();
+        else prevSlide();
       }
       startX = null;
     });
+
+    updateCarousel();
+    startCarousel();
 
     /* =========================
        CONFETTI
@@ -759,7 +808,7 @@
     }
 
     /* =========================
-       CORAÇÕES: flutuando + ao clicar
+       CORAÇÕES
        ========================= */
     setInterval(() => {
       const heart = document.createElement("div");
@@ -773,7 +822,7 @@
 
     document.addEventListener("click", (e) => {
       const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
-      if(["button","input","label","audio"].includes(tag)) return;
+      if(["button","input","label","audio","img"].includes(tag)) return;
 
       const h = document.createElement("div");
       h.className = "tap-heart";
